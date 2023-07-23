@@ -1,4 +1,4 @@
-module Functions (double, quadruple, factorial, average, n, last_new2, initNew, second, swap, pair, palindrome, twice) where
+module Functions (double, quadruple, factorial, average, n, last_new2, initNew, second, swap, pair, palindrome, twice, quadrupleNew, product1, qsortRev, qsort2) where
 
 -- FP4
 
@@ -17,7 +17,6 @@ module Functions (double, quadruple, factorial, average, n, last_new2, initNew, 
             xs = [1,2,3,4,5]
 
 -- exercises
-    -- last_new1 xs = head (reverse xs)
 
     last_new2 xs = xs !! (length xs - 1)
 
@@ -51,7 +50,7 @@ module Functions (double, quadruple, factorial, average, n, last_new2, initNew, 
     pair :: a -> b -> (a,b)
     pair x y = (x,y)
 
-    double :: Int -> Int
+    double :: Num a => a -> a
     double x = x*2
 
     palindrome :: Eq a => [a] -> Bool
@@ -60,3 +59,34 @@ module Functions (double, quadruple, factorial, average, n, last_new2, initNew, 
     -- not sure how this works
     twice :: (a -> a) -> a -> a
     twice f x = f (f x)
+
+-- chapter 1
+
+    -- (1.7)
+
+    -- (1)
+    quadrupleNew :: Num a => a -> a
+    quadrupleNew x = x*4
+
+    -- (2)
+    -- sum [] = 0
+    -- sum (x:xs) = x + sum xs
+
+    -- (3)
+    product1 :: Num a => [a] -> a
+    product1 [] = 1
+    product1 (x:xs) = x * product1 xs
+
+    -- (4)
+    qsortRev :: Ord a => [a] -> [a]
+    qsortRev [] = []
+    qsortRev (x:xs) = qsortRev larger ++ [x] ++ qsortRev smaller where
+        larger = [b | b <- xs, b > x]
+        smaller = [a | a <- xs, a <= x]
+
+    -- (5)
+    qsort2 :: Ord a => [a] -> [a]
+    qsort2 [] = []
+    qsort2 (x:xs) = qsort2 smaller ++ [x] ++ qsort2 larger where
+        smaller = [a | a <- xs, a < x]
+        larger = [b | b <- xs, b > x]
