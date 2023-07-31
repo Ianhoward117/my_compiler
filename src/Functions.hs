@@ -1,4 +1,4 @@
-module Functions (double, quadruple, factorial, average, n, last_new2, initNew, second, swap, pair, palindrome, twice, quadrupleNew, product1, qsortRev, qsort2) where
+module Functions (double, quadruple, factorial, average, n, last_new2, initNew, second, swap, pair, palindrome, twice, quadrupleNew, product1, qsortRev, qsort2, doubleTwice, tail_new, init_new, init_new2) where
 
 -- FP4
 
@@ -55,10 +55,12 @@ module Functions (double, quadruple, factorial, average, n, last_new2, initNew, 
 
     palindrome :: Eq a => [a] -> Bool
     palindrome xs = reverse xs == xs
- 
-    -- not sure how this works
+
     twice :: (a -> a) -> a -> a
     twice f x = f (f x)
+    
+    doubleTwice :: Num a => a -> a
+    doubleTwice = twice double
 
 -- chapter 1
 
@@ -90,3 +92,37 @@ module Functions (double, quadruple, factorial, average, n, last_new2, initNew, 
     qsort2 (x:xs) = qsort2 smaller ++ [x] ++ qsort2 larger where
         smaller = [a | a <- xs, a < x]
         larger = [b | b <- xs, b > x]
+
+{- 
+
+chapter 2
+
+    (2.7)
+        
+        (2)
+        
+            (2^3)*4
+
+            (2*3)+(4*5)
+
+            2+(3*(4^5))
+
+        (3)
+
+            n = a `div` length xs
+                where
+                    a = 10
+                    xs = [1,2,3,4,5]
+
+        (4)
+-}
+    tail_new :: [a] -> a
+    tail_new xs = head (reverse xs)
+
+--      (5)
+
+    init_new :: [a] -> [a]
+    init_new xs = reverse (drop 1 (reverse xs))
+
+    init_new2 :: [a] -> [a]
+    init_new2 xs = take (length xs - 1) xs
