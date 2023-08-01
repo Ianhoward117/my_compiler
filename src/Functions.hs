@@ -1,4 +1,4 @@
-module Functions (double, quadruple, factorial, average, n, last_new2, initNew, second, swap, pair, palindrome, twice, quadrupleNew, product1, qsortRev, qsort2, doubleTwice, tail_new, init_new, init_new2) where
+module Functions (double, quadruple, factorial, average, n, last_new2, initNew, second, swap, pair, palindrome, twice, quadrupleNew, product1, qsortRev, qsort2, doubleTwice, tail_new, init_new, init_new2, bools, nums, add, copy, apply, second_2, swap_2, pair_2, double_2, palindrome_2, twice_2) where
 
 -- FP4
 
@@ -126,3 +126,62 @@ chapter 2
 
     init_new2 :: [a] -> [a]
     init_new2 xs = take (length xs - 1) xs
+{- 
+
+chapter 3
+
+    (3.11)
+
+        (1)
+
+            ['a','b','c'] :: [Char]
+
+            ('a','b','c') :: (Char, Char, Char)
+
+            [(False, '0'), (True, '1')] :: [(Bool, Char)]
+
+            [tail, init, reverse] :: [[a] -> [a]]
+
+        (2)
+-}
+    bools :: [Bool]
+    bools = [False, True, False]
+
+    nums :: [[Int]]
+    nums = [[1,2], [3,4]]
+
+    add :: Int -> Int -> Int -> Int
+    add x y z = x+y+z
+
+    copy :: a -> (a,a)
+    copy x = (x,x)
+
+    apply :: (a -> b) -> a -> b
+    apply f x = f x
+
+        -- (3)
+
+    second_2 :: [a] -> a
+    second_2 xs = head (tail xs)
+
+    swap_2 :: (a,b) -> (b,a)
+    swap_2 (x,y) = (y,x)
+
+    pair_2 :: a -> b -> (a,b)
+    pair_2 x y = (x,y)
+
+    double_2 :: Num a => a -> a
+    double_2 x = x*2
+
+    palindrome_2 :: Eq a => [a] -> Bool
+    palindrome_2 xs = reverse xs == xs
+
+    twice_2 :: (t -> t) -> t -> t
+    twice_2 f x = f (f x)
+{-
+        -- (5)
+
+            -- In general, it is not feasible for function types to be instances of the Eq class because functions can not be compared for equality.
+
+            -- It is feasible for function types to be instances of the Eq class when comparing a function to itself.
+-}
