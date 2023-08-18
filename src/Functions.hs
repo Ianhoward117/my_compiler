@@ -1,4 +1,4 @@
-module Functions (double, quadruple, factorial, average, n, last_new2, initNew, second, swap, pair, palindrome, twice, quadrupleNew, product1, qsortRev, qsort2, doubleTwice, tail_new, init_new, init_new2, bools, nums, add, copy, apply, second_2, swap_2, pair_2, double_2, palindrome_2, twice_2, safetail, safetail_guarded, safetail_matching) where
+module Functions (double, quadruple, factorial, average, n, last_new2, initNew, second, swap, pair, palindrome, twice, quadrupleNew, product1, qsortRev, qsort2, doubleTwice, tail_new, init_new, init_new2, bools, nums, add, copy, apply, second_2, swap_2, pair_2, double_2, palindrome_2, twice_2, safetail, safetail_guarded, safetail_matching, halve, third, third_2, third_3, safetail_2, safetail_3, safetail_4, luhnDouble, luhn) where
 
 -- FP4
 
@@ -304,7 +304,7 @@ chapter 3
     
     (&&) :: Bool -> Bool -> Bool
     a && b = if a == True then
-                if b == True then True else False
+             if b == True then True else False
              else False
 
             (4)
@@ -315,4 +315,95 @@ chapter 3
 
     (&&) :: Bool -> Bool -> Bool
     a && b = if a == True then b else False
+
+    Chapter 4
+
+        Exercises
+
+            (1)
 -}
+    halve :: [a] -> ([a],[a])
+    halve xs | odd (length xs) = ([],[])
+             | otherwise = (take ((length xs) `div` 2) xs, drop ((length xs) `div` 2) xs)
+
+--          (2)
+
+    third :: [a] -> a
+    third xs = head (tail (tail xs))
+
+    third_2 :: [a] -> a
+    third_2 xs = xs !! 2
+
+    third_3 :: [a] -> a
+    third_3 (_:_:x:_) = x
+
+--          (3)
+
+    safetail_2 :: [a] -> [a]
+    safetail_2 xs = if length xs == 0 then [] else tail xs
+
+    safetail_3 :: [a] -> [a]
+    safetail_3 xs | length xs == 0 = []
+                  | otherwise = tail xs
+    
+    safetail_4 :: [a] -> [a]
+    safetail_4 [] = []
+    safetail_4 (xs:x) = x
+
+{-          (4)
+
+                (||) :: Bool -> Bool -> Bool
+                True || True = True
+                True || False = True
+                False || True = True
+                False || False = False
+
+                (||) :: Bool -> Bool -> Bool
+                False || False = False
+                _ || _ = True
+
+                (||) :: Bool -> Bool -> Bool
+                False || a = a
+                True || _ = True
+
+                (||) :: Bool -> Bool -> Bool
+                b || c | b == c    = b
+                       | otherwise = True
+
+            (5)
+
+                (&&) :: Bool -> Bool -> Bool
+                True && True = True
+                _    && _    = False
+
+                (&&) :: Bool -> Bool -> Bool
+                a && b = if a == True then
+                         if b == True then True else False
+                         else False
+
+            (6)
+
+                (&&) :: Bool -> Bool -> Bool
+                True && b = b
+                False && _ = False
+
+                (&&) :: Bool -> Bool -> Bool
+                a && b = if a == True then b else False
+
+            (7)
+
+                mult :: Int -> Int -> Int -> Int
+                mult x y z = x*y*z
+
+                mult :: Int -> Int -> Int -> Int
+                mult = \x -> (\y -> (\z = x * y * z))
+
+            (8)
+-}
+
+    luhnDouble :: Int -> Int
+    luhnDouble n | n*2 > 9 = n*2 - 9
+                 | otherwise = n*2
+    
+    luhn :: Int -> Int -> Int -> Int -> Bool
+    luhn a b c d = if (luhnDouble a + b + luhnDouble c + d) `mod` 10 == 0 then True else False
