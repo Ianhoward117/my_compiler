@@ -1,4 +1,4 @@
-module Functions (double, quadruple, factorial, average, n, last_new2, initNew, second, swap, pair, palindrome, twice, quadrupleNew, product1, qsortRev, qsort2, doubleTwice, tail_new, init_new, init_new2, bools, nums, add, copy, apply, second_2, swap_2, pair_2, double_2, palindrome_2, twice_2, safetail, safetail_guarded, safetail_matching, halve, third, third_2, third_3, safetail_2, safetail_3, safetail_4, luhnDouble, luhn) where
+module Functions (double, quadruple, factorial, average, n, last_new2, initNew, second, swap, pair, palindrome, twice, quadrupleNew, product1, qsortRev, qsort2, doubleTwice, tail_new, init_new, init_new2, bools, nums, add, copy, apply, second_2, swap_2, pair_2, double_2, palindrome_2, twice_2, safetail, safetail_guarded, safetail_matching, halve, third, third_2, third_3, safetail_2, safetail_3, safetail_4, luhnDouble, luhn, firsts, prime, factors, primes, find, pairs, sorted, positions, lowers, count, pyths, perfects, scalarProduct, squares, grid, square, replicate_new, ex, better_ex, positions_new) where
 
 -- FP4
 
@@ -407,3 +407,87 @@ chapter 3
     
     luhn :: Int -> Int -> Int -> Int -> Bool
     luhn a b c d = if (luhnDouble a + b + luhnDouble c + d) `mod` 10 == 0 then True else False
+
+--  Chapter 5
+
+    firsts :: [(a,b)] -> [a]
+    firsts ps = [x | (x,_) <- ps]
+
+    factors :: Int -> [Int]
+    factors n = [x | x <- [1..n], n `mod` x == 0]
+
+    prime :: Int -> Bool
+    prime n = factors n == [1,n]
+
+    primes :: Int -> [Int]
+    primes n = [x | x <- [1..n], prime x]
+
+    find :: Eq a => a -> [(a,b)] -> [b]
+    find k t = [v | (k', v) <- t, k == k']
+
+    pairs :: [a] -> [(a,a)]
+    pairs xs = zip xs (tail xs)
+
+    sorted :: Ord a => [a] -> Bool
+    sorted xs = and [x <= y | (x,y) <- pairs xs]
+
+    positions :: Eq a => a -> [a] -> [Int]
+    positions x xs = [i | (x', i) <- zip xs [0..], x == x']
+
+    lowers :: String -> Int
+    lowers xs = length [x | x <- xs, x >= 'a' && x <= 'z']
+
+    count :: Char -> String -> Int
+    count x xs = length [x' | x' <- xs, x == x']
+
+--  exercises
+
+--  (1)
+
+    squares :: Int
+    squares = sum [x^2 | x <- [1..100]]
+
+-- (2)
+
+    grid :: Int -> Int -> [(Int, Int)]
+    grid m n = [(x,y) | x <- [0..m], y <- [0..n]]
+
+-- (3)
+
+    square :: Int -> [(Int, Int)]
+    square n = [(x,y) | (x,y) <- grid n n, x /= y]
+
+--  (4)
+
+    replicate_new :: Int -> a -> [a]
+    replicate_new n x = [x | _ <- [1..n]]
+
+--  (7)
+
+    ex :: [(Int, Int)]
+    ex = [(x,y) | x <- [1,2], y <- [3,4]]
+
+    better_ex :: [(Int, Int)]
+    better_ex = concat [[(x,y) | y <- [3,4]] | x <- [1,2]]
+
+--  (8)
+
+    positions_new :: Eq a => a -> [a] -> [Int]
+    positions_new x xs = find x (zip xs [0..])
+
+{- FP 7 exercises
+
+    (1)
+-}
+    pyths :: Int -> [(Int,Int,Int)]
+    pyths n = [(x,y,z) | x <- [1..n], y <- [1..n], z <- [1..n], x^2 + y^2 == z^2]
+
+--  (2)
+
+    perfects :: Int -> [Int]
+    perfects n = [x | x <- [1..n], (sum (factors x)) - x == x]
+
+--  (3)
+
+    scalarProduct :: [Int] -> [Int] -> Int
+    scalarProduct xs ys = sum [x*y | (x,y) <- zip xs ys]
