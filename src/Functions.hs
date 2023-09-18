@@ -1,4 +1,4 @@
-module Functions (double, quadruple, factorial, average, n, last_new2, initNew, second, swap, pair, palindrome, twice, quadrupleNew, product1, qsortRev, qsort2, doubleTwice, tail_new, init_new, init_new2, bools, nums, add, copy, apply, second_2, swap_2, pair_2, double_2, palindrome_2, twice_2, safetail, safetail_guarded, safetail_matching, halve, third, third_2, third_3, safetail_2, safetail_3, safetail_4, luhnDouble, luhn, firsts, prime, factors, primes, find, pairs, sorted, positions, lowers, count, pyths, perfects, scalarProduct, squares, grid, square, replicate_new, ex, better_ex, positions_new) where
+module Functions (double, quadruple, factorial, average, n, last_new2, initNew, second, swap, pair, palindrome, twice, quadrupleNew, product1, qsortRev, qsort2, doubleTwice, tail_new, init_new, init_new2, bools, nums, add, copy, apply, second_2, swap_2, pair_2, double_2, palindrome_2, twice_2, safetail, safetail_guarded, safetail_matching, halve, third, third_2, third_3, safetail_2, safetail_3, safetail_4, luhnDouble, luhn, firsts, prime, factors, primes, find, pairs, sorted, positions, lowers, count, pyths, perfects, scalarProduct, squares, grid, square, replicate_new, ex, better_ex, positions_new, fac, product_new, length_new, reverse_new, zip_new, drop_new, qsort_new, and_new, concat_new, replicate_new2, elem_new, insert, isort, merge, msort, fac_neg, sumdown, exp_new, euclid, and_new2, merge_new, msort_new) where
 
 -- FP4
 
@@ -323,8 +323,7 @@ chapter 3
             (1)
 -}
     halve :: [a] -> ([a],[a])
-    halve xs | odd (length xs) = ([],[])
-             | otherwise = (take ((length xs) `div` 2) xs, drop ((length xs) `div` 2) xs)
+    halve xs = (take ((length xs) `div` 2) xs, drop ((length xs) `div` 2) xs)
 
 --          (2)
 
@@ -475,7 +474,7 @@ chapter 3
     positions_new :: Eq a => a -> [a] -> [Int]
     positions_new x xs = find x (zip xs [0..])
 
-{- FP 7 exercises
+{-  FP 7 exercises
 
     (1)
 -}
@@ -491,3 +490,168 @@ chapter 3
 
     scalarProduct :: [Int] -> [Int] -> Int
     scalarProduct xs ys = sum [x*y | (x,y) <- zip xs ys]
+
+--  FP 8
+
+    fac :: (Eq t, Num t) => t -> t
+    fac 0 = 1
+    fac n = n * fac (n-1)
+
+    product_new :: Num t => [t] -> t
+    product_new [] = 1
+    product_new (n:ns) = n * product_new ns
+
+    length_new :: [a] -> Int
+    length_new [] = 0
+    length_new (_:xs) = 1 + length_new xs
+
+    reverse_new :: [a] -> [a]
+    reverse_new [] = []
+    reverse_new (x:xs) = reverse_new xs ++ [x]
+
+    zip_new :: [a] -> [b] -> [(a,b)]
+    zip_new [] _ = []
+    zip_new _ [] = []
+    zip_new (x:xs) (y:ys) = (x,y) : zip_new xs ys
+
+    drop_new :: Int -> [a] -> [a]
+    drop_new 0 xs = xs
+    drop_new _ [] = []
+    drop_new n (_:xs) = drop_new (n-1) xs
+
+    qsort_new :: Ord a => [a] -> [a]
+    qsort_new [] = []
+    qsort_new (x:xs) = qsort_new larger ++ [x] ++ qsort_new smaller where
+        larger = [a | a <- xs, a > x]
+        smaller = [b | b <- xs, b <= x]
+
+--  Exercises
+
+--  (1)
+
+    and_new :: [Bool] -> Bool
+    and_new [] = True
+    and_new (b:bs) = b && and_new bs
+
+    concat_new :: [[a]] -> [a]
+    concat_new [] = []
+    concat_new (xs:xss) = xs ++ concat_new xss
+
+    replicate_new2 :: Int -> a -> [a]
+    replicate_new2 0 x = []
+    replicate_new2 n x = x : replicate_new2 (n-1) x
+{- 
+    (!!) :: [a] -> Int -> a
+    (!!) (x:_) 0 = x
+    (!!) (_:xs) n = xs !! (n-1)
+-}
+
+    elem_new :: Eq a => a -> [a] -> Bool
+    elem_new x [] = False
+    elem_new x (y:ys) | x == y = True
+                      | otherwise = elem_new x ys
+
+    insert :: Int -> [Int] -> [Int]
+    insert x [] = [x]
+    insert x (y:ys) | x <= y = x : y : ys
+                    | otherwise = y : insert x ys
+
+    isort :: [Int] -> [Int]
+    isort [] = []
+    isort (x:xs) = insert x (isort xs)
+
+    merge :: [Int] -> [Int] -> [Int]
+    merge [] ys = ys
+    merge xs [] = xs
+    merge (x:xs) (y:ys) | x <= y = x : merge xs (y:ys)
+                        | otherwise = y : merge (x:xs) ys
+    
+    msort :: [Int] -> [Int]
+    msort [] = []
+    msort [x] = [x]
+    msort xs = merge (msort (take ((length xs) `div` 2) xs)) (msort (drop ((length xs) `div` 2) xs))
+
+--  Chapter 6
+
+--  Exercises
+
+--  (1)
+
+    fac_neg :: Int -> Int
+    fac_neg 0 = 1
+    fac_neg n | n > 0 = n * fac_neg (n-1)
+
+--  (2)
+
+    sumdown :: Int -> Int
+    sumdown 0 = 0
+    sumdown n = n + sumdown (n-1)
+
+--  (3)
+
+    exp_new :: Int -> Int -> Int
+    exp_new m 0 = 1
+    exp_new m n = m * (exp_new m (n-1))
+
+--  (4)
+
+    euclid :: Int -> Int -> Int
+    euclid m n | m == n = m
+               | m < n = euclid m (n-m)
+               | n < m = euclid (m-n) n
+
+{-  (5)
+
+    length :: [a] -> Int
+    length [] = 0
+    length (_:xs) = 1 + length xs
+
+    length [1,2,3]
+        = 1 + length [2,3]
+        = 1 + 1 + length [3]
+        = 1 + 1 + 1 + length []
+        = 1 + 1 + 1 + 0
+        = 3
+
+    drop :: Int -> [a] -> [a]
+    drop 0 xs = xs
+    drop _ [] = []
+    drop n (_:xs) = drop (n-1) xs
+
+    drop 3 [1,2,3,4,5]
+        = drop 2 [2,3,4,5]
+        = drop 1 [3,4,5]
+        = drop 0 [4,5]
+        = [4,5]
+
+    init :: [a] -> [a]
+    init [_] = []
+    init (x:xs) = x : init xs
+
+    init [1,2,3]
+        = 1 : init [2,3]
+        = 1 : 2 : init [3]
+        = 1 : 2 : []
+        = [1,2]
+-}
+--  (6)
+
+    and_new2 :: [Bool] -> Bool
+    and_new2 [] = True
+    and_new2 (x:xs) | x == False = False
+               | x == True = and_new2 xs
+
+--  (7)
+
+    merge_new :: Ord a => [a] -> [a] -> [a]
+    merge_new xs [] = xs
+    merge_new [] ys = ys
+    merge_new (x:xs) (y:ys) | x <= y = x : merge_new xs (y:ys)
+                            | y < x = y : merge_new ys (x:xs)
+
+-- (8)
+
+    msort_new :: Ord a => [a] -> [a]
+    msort_new [] = []
+    msort_new [x] = [x]
+    msort_new xs = merge_new (msort_new (take ((length xs) `div` 2) xs)) (msort_new (drop ((length xs) `div` 2) xs))
