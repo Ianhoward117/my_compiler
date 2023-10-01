@@ -655,3 +655,115 @@ chapter 3
     msort_new [] = []
     msort_new [x] = [x]
     msort_new xs = merge_new (msort_new (take ((length xs) `div` 2) xs)) (msort_new (drop ((length xs) `div` 2) xs))
+
+-- FP 10: Higher Order Functions
+
+{-
+    map :: (a -> b) -> [a] -> [b]
+    map f xs = [f x | x <- xs]
+
+    map f [] = []
+    map f (x:xs) = f x : map f xs
+
+    filter :: (a -> Bool) -> [a] -> [a]
+    filter p xs = [x | x <- xs, p x]
+
+    filter p [] = []
+    filter p (x:xs) | p x = x : filter p xs
+                    | otherwise = filter p xs
+
+
+    sum [] = 0
+    sum (x:xs) = x + sum xs
+
+    product [] = 1
+    product (x:xs) = x * product xs
+
+    and [] = True
+    and (x:xs) = x && and xs
+
+
+    sum = foldr (+) 0
+
+    product = foldr (*) 1
+
+    or = foldr (||) false
+
+    and = foldr (&&) true
+
+    foldr :: (a -> b -> b) -> b -> [a] -> b
+    foldr f v [] = v
+    foldr f v (x:xs) = f x (foldr f v xs)
+
+
+    length :: [a] -> Int
+    length [] = 0
+    length (_:xs) = 1 + length xs
+
+    length = foldr (\_ n -> 1+n) 0
+
+    reverse :: [a] -> [a]
+    reverse [] = []
+    reverse (x:xs) = reverse xs ++ [x]
+
+    reverse = foldr (\x xs -> xs ++ [x]) []
+
+    (++ ys) = foldr (:) ys
+
+
+    (.) :: (b -> c) -> (a -> b) -> (a -> c)
+    f . g = \x -> f (g x)
+
+    odd :: Int -> Bool
+    odd = not . even
+
+    all :: (a -> Bool) -> [a] -> Bool
+    all p xs = and [p x | x <- xs]
+
+    all even [2,4,6,8,10]
+        True
+
+    any :: (a -> Bool) -> [a] -> Bool
+    any p xs = or [p x | x <- xs]
+
+    any (== ' ') "abc def"
+        True
+
+    takeWhile :: (a -> Bool) -> [a] -> [a]
+    takeWhile p [] = []
+    takeWhile p (x:xs) | p x = x : takeWhile p xs
+                       | otherwise = []
+
+    takeWhile (/= ' ') "abc def"
+        "abc"
+
+    dropWhile :: (a -> Bool) -> [a] -> [a]
+    dropWhile p [] = []
+    dropWhile p (x:xs) | p x = dropWhile p xs
+                       | otherwise = x:xs
+
+    dropWhile (== ' ') "   abc"
+        "abc"
+-}
+
+{-  
+    Exercises
+
+    (1)
+
+    Higher order functions that return functions as results are better known as curried functions.
+
+    (2)
+
+    [f x | x <- xs, p x]
+    ==
+    map f (filter p xs)
+
+    (3)
+
+    map :: (a -> b) -> [a] -> [b]
+    map f [] = []
+    map f (x:xs) = f x : map f xs
+
+    map f (x:xs) = foldr (\x xs -> f x : xs) [] (x:xs)
+-}
