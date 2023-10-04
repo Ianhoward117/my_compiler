@@ -767,3 +767,66 @@ chapter 3
 
     map f (x:xs) = foldr (\x xs -> f x : xs) [] (x:xs)
 -}
+
+{-
+    Chapter 7: Higher Order Functions
+
+    sumsqreven :: [Int] -> Int
+    sumsqreven ns = sum (map (^2) (filter even ns))
+-}
+
+{-
+    Exercises
+
+    (1)
+
+    [f x | x <- xs, p x]
+
+    map f (filter p xs)
+
+    (2)
+
+    all :: (a -> Bool) -> [Bool] -> Bool
+    all p = and . map p
+
+    any :: (a -> Bool) -> [Bool] -> Bool
+    any p = or . map p
+
+    takeWhile :: (a -> Bool) -> [a] -> [a]
+    takeWhile _ [] = []
+    takeWhile p (x:xs) | p x = x : takeWhile p xs
+                       | otherwise = []
+
+    dropWhile :: (a -> Bool) -> [a] -> [a]
+    dropWhile _ [] = []
+    dropWhile p (x:xs) | p x = dropWhile p xs
+                       | otherwise = x:xs
+    
+    (3)
+
+    map :: (a -> b) -> [a] -> [b]
+    map f [] = []
+    map f (x:xs) = f x : map f xs
+
+    map f = foldr (\x xs -> f x : xs) []
+
+
+    filter p [] = []
+    filter p (x:xs) | p x = x : filter p xs
+                    | otherwise = filter p xs
+
+    filter p = foldr (\x xs -> if p x then x:xs else xs) []
+
+    (4)
+
+    dec2int :: [Int] -> Int
+    dec2int = foldl (\x y -> 10*x + y) 0
+
+    (5)
+
+    curry :: ((a,b) -> c) -> a -> b -> c
+    curry f = \x y -> f (x,y)
+
+    uncurry :: (a -> b -> c) -> (a,b) -> c
+    uncurry f = \(x,y) -> f x y
+-}
