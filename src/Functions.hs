@@ -1,4 +1,4 @@
-module Functions (double, quadruple, factorial, average, n, last_new2, initNew, second, swap, pair, palindrome, twice, quadrupleNew, product1, qsortRev, qsort2, doubleTwice, tail_new, init_new, init_new2, bools, nums, add, copy, apply, second_2, swap_2, pair_2, double_2, palindrome_2, twice_2, safetail, safetail_guarded, safetail_matching, halve, third, third_2, third_3, safetail_2, safetail_3, safetail_4, luhnDouble, luhn, firsts, prime, factors, primes, find, pairs, sorted, positions, lowers, count, pyths, perfects, scalarProduct, squares, grid, square, replicate_new, ex, better_ex, positions_new, fac, product_new, length_new, reverse_new, zip_new, drop_new, qsort_new, and_new, concat_new, replicate_new2, elem_new, insert, isort, merge, msort, fac_neg, sumdown, exp_new, euclid, and_new2, merge_new, msort_new, origin, left, answers, square2, area, isYes) where
+module Functions (double, quadruple, factorial, average, n, last_new2, initNew, second, swap, pair, palindrome, twice, quadrupleNew, product1, qsortRev, qsort2, doubleTwice, tail_new, init_new, init_new2, bools, nums, add, copy, apply, second_2, swap_2, pair_2, double_2, palindrome_2, twice_2, safetail, safetail_guarded, safetail_matching, halve, third, third_2, third_3, safetail_2, safetail_3, safetail_4, luhnDouble, luhn, firsts, prime, factors, primes, find, pairs, sorted, positions, lowers, count, pyths, perfects, scalarProduct, squares, grid, square, replicate_new, ex, better_ex, positions_new, fac, product_new, length_new, reverse_new, zip_new, drop_new, qsort_new, and_new, concat_new, replicate_new2, elem_new, insert, isort, merge, msort, fac_neg, sumdown, exp_new, euclid, and_new2, merge_new, msort_new) where
 
 -- FP4
 
@@ -832,50 +832,5 @@ chapter 3
 -}
 
 {-
-    FP 12 - Declaring Types and Classes
-
-    type String = [Char]
+    Ch 8 - Declaring Types and Classes
 -}
-
-    type Pos = (Int,Int)
-
-    origin :: Pos
-    origin = (0,0)
-
-    left :: Pos -> Pos
-    left (x,y) = (x-1,y)
-
-    -- type Pair a = (a,a)
-
-    -- mult :: Pair Int -> Int
-    -- mult (m,n) = m*n
-
-    -- copy :: a -> Pair a
-    -- copy x = (x,x)
-
-    -- data Bool = False | True
-
-    data Answer = Yes | No | Unknown
-        deriving Show
-
-    isYes :: Answer -> Bool
-    isYes Yes = True
-    isYes _ = False
-
-    flip2 :: Answer -> Answer
-    flip2 Yes = No
-    flip2 No = Yes
-    flip2 Unknown = Unknown
-
-    answers :: [Answer]
-    answers = [Yes,No,Unknown]
-
-    data Shape = Circle Float | Rect Float Float
-        deriving Show
-
-    square2 :: Float -> Shape
-    square2 n = Rect n n
-
-    area :: Shape -> Float
-    area (Circle r) = pi * r^2
-    area (Rect x y) = x * y
