@@ -197,7 +197,3 @@ module FPtwelve (origin, left, isYes, flip2, answers, square2, area, mult, copy,
                                 LT -> occurs x l
                                 EQ -> True
                                 GT -> occurs x r
-
-    -- 3.
-
-    
