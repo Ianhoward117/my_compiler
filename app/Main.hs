@@ -7,6 +7,9 @@ import qualified Binary_string_transmitter
 import qualified VotingAlgorithms
 import qualified FPtwelve
 import qualified Countdown
+import qualified Hangman
+import qualified Nim
+import qualified Life
 
 main :: IO ()
 main = do
