@@ -28,6 +28,9 @@ module Life where
     oscillator :: Board
     oscillator = [(5,5),(5,6),(5,7)]
 
+    glider_and_oscillator :: Board
+    glider_and_oscillator = glider ++ oscillator
+
     showcells :: Board -> IO ()
     showcells b = sequence_ [writeat p "O" | p <- b]
 

@@ -10,6 +10,7 @@ import qualified Countdown
 import qualified Hangman
 import qualified Nim
 import qualified Life
+import qualified Sudoku
 
 main :: IO ()
 main = do
